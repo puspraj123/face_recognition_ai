@@ -6,18 +6,13 @@ from datetime import datetime
 import os
 
 st.title("🧾 Face Attendance System")
-
-run = st.checkbox("Start Camera")
+run = st.checkbox("Start Camera", key="camera_toggle")
 
 # Load OpenCV face detector (instead of face_recognition)
 face_cascade = cv2.CascadeClassifier(
     cv2.data.haarcascades + "haarcascade_frontalface_default.xml"
 )
 
-# Load known image
-st.title("🧾 Face Attendance System")
-
-run = st.checkbox("Start Camera")
 
 # 👇 PUT THIS HERE (right after checkbox)
 uploaded_file = st.file_uploader("Upload known face image")
