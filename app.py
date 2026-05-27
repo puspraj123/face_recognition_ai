@@ -63,3 +63,8 @@ if run:
         FRAME_WINDOW.image(cv2.cvtColor(frame, cv2.COLOR_BGR2RGB))
 
     cap.release()
+uploaded_file = st.file_uploader("Upload known face image")
+
+if uploaded_file:
+    file_bytes = np.asarray(bytearray(uploaded_file.read()), dtype=np.uint8)
+    known_img = cv2.imdecode(file_bytes, 1)
