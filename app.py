@@ -15,10 +15,23 @@ face_cascade = cv2.CascadeClassifier(
 )
 
 # Load known image
-known_img = cv2.imread("known.jpg")
-known_gray = cv2.cvtColor(known_img, cv2.COLOR_BGR2GRAY)
+st.title("🧾 Face Attendance System")
+
+run = st.checkbox("Start Camera")
+
+# 👇 PUT THIS HERE (right after checkbox)
+uploaded_file = st.file_uploader("Upload known face image")
+
+if uploaded_file:
+    file_bytes = np.asarray(bytearray(uploaded_file.read()), dtype=np.uint8)
+    known_img = cv2.imdecode(file_bytes, cv2.IMREAD_COLOR)
+    known_gray = cv2.cvtColor(known_img, cv2.COLOR_BGR2GRAY)
+else:
+    st.warning("Please upload a reference image")
+    st.stop()
 
 known_name = "Puspa Raj"
+
 
 def mark_attendance(name):
     file = "attendance.csv"
@@ -63,8 +76,4 @@ if run:
         FRAME_WINDOW.image(cv2.cvtColor(frame, cv2.COLOR_BGR2RGB))
 
     cap.release()
-uploaded_file = st.file_uploader("Upload known face image")
-
-if uploaded_file:
-    file_bytes = np.asarray(bytearray(uploaded_file.read()), dtype=np.uint8)
-    known_img = cv2.imdecode(file_bytes, 1)
+    
